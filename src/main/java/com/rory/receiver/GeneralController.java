@@ -102,4 +102,10 @@ public class GeneralController {
 		System.out.println(data);
 		messageReceiverService.sseEventEmitfunc(event, data);
 	}
+	@PostMapping(path = "/sseEventEmitPost/{event}/{data}")
+	public void sseEventEmitPost(@PathVariable(name="event")String event, @PathVariable(name="data")String data) {
+		System.out.println(event);
+		System.out.println(data);
+		messageReceiverService.sseEventEmitfunc(event, data);
+	}
 }
