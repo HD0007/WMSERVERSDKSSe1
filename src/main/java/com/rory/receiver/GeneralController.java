@@ -47,7 +47,7 @@ public class GeneralController {
                 String fromNumber = message.getString("from");
                 JSONObject messageTextObject = message.getJSONObject("text");
                 String content = messageTextObject.getString("body");
-                messageReceiverService.sseEvent("MESSAGE", content);
+                messageReceiverService.sseEvent("MESSAGE", message.toString());
             }
             return MessageReceiverService.wiseManEcho(messageJSON);
         } catch (JSONException e){
