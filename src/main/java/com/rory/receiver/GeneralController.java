@@ -41,7 +41,14 @@ public class GeneralController {
         try {
             JSONObject messageJSON = new JSONObject(jsonString);
             // For now as a test, call the service to echo the message.
-            messageReceiverService.sseEvent("MESSAGE",messageJSON.toString());
+            JSONArray messages = messageJSON.getJSONArray("entry").getJSONObject(0).getJSONArray("changes").getJSONObject(0).getJSONObject("value").getJSONArray("messages");
+            for (int i = 0; i < messages.length(); i++) {
+                JSONObject message = messages.getJSONObject(i);
+                String fromNumber = message.getString("from");
+                JSONObject messageTextObject = message.getJSONObject("text");
+                String content = messageTextObject.getString("body");
+                messageReceiverService.sseEvent("MESSAGE", content);
+            }
             return MessageReceiverService.wiseManEcho(messageJSON);
         } catch (JSONException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
