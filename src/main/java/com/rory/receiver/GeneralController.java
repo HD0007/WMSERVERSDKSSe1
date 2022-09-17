@@ -68,9 +68,9 @@ public class GeneralController {
     }
 
     @GetMapping(value="/sendTemplate")
-    public ResponseEntity<String> sendTemplate(@RequestParam("template_name") String template_name){
+    public ResponseEntity<String> sendTemplate(@RequestParam("template_name") String template_name,@RequestParam("number") String toPhoneNumber){
         try {
-        	String toPhoneNumber="";
+//         	String toPhoneNumber="";
             return MessageSenderService.sendTemplate(template_name, toPhoneNumber);
         } catch (JSONException e){
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
